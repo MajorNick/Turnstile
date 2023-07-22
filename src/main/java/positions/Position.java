@@ -9,7 +9,7 @@ public class Position {
     private Manager manager;
     public LocalTime start;
     public LocalTime end;
-    public Position(String position, Manager manager,LocalTime start, LocalTime end){
+    public Position(String position,LocalTime start, LocalTime end){
         position_name = position;
         this.manager = manager;
         this.start  = start;
@@ -17,17 +17,29 @@ public class Position {
     }
 
     // working hours from 11  to 19  by default
-    public Position(String position, Manager manager){
+    public Position(String position){
         position_name = position;
         this.manager = manager;
         this.start  = LocalTime.of(11,0);
         this.end = LocalTime.of(19,0);
     }
 
-    public Human getManager(){
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj){
+            return true;
+        }
+        if (!(obj instanceof Position)){
+            return false;
+        }
+        Position pos = (Position)obj;
+        return this.position_name.equals(pos.position_name);
+    }
+
+    public Employee getManager(){
         return manager;
     }
-    public void setManager(Human h){
+    public void setManager(Manager h){
         manager = h;
     }
     public String getPosition_name(){
