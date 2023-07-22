@@ -1,5 +1,8 @@
 package database;
 
+import javax.xml.crypto.Data;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,10 +12,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+
 public class Queries {
     private final Connection con;
-    public Queries (Connection con){
-        this.con  = con;
+    public Queries (){
+        con = (new Database()).getConnection();
     }
 
     public boolean saveDailyAttendance(String id, LocalTime enter){
@@ -29,18 +33,35 @@ public class Queries {
         return executed;
     }
 
-    public void writeLateSpecialistsList(LocalDate from,LocalDate to){
+    public boolean writeDailyAttendanceCSV(LocalDate from,LocalDate to){
         PreparedStatement statement = null;
         ResultSet result;
         try{
             statement =  con.prepareStatement("SELECT * FROM " + DatabaseInfo.ATTENDANCE_TABLE+ " WHERE attendance_date>= "+from +
-                    " AND attendance_date<="+to +" ORDER BY attendance_date;" );
+                    " AND attendance_date<="+to +" GROUP BY specialist ORDER BY specialist,attendance_date;" );
             result = statement.executeQuery();
+            try{
+                FileWriter fileWriter = new FileWriter("attendance.csv");
+                fileWriter.append("specialist,attendance_date,enter_time,exit_time\n");
+                while (result.next()) {
+                    String specialist = result.getString("specialist");
+                    String attendanceDate = result.getString("attendance_date");
+                    String start = result.getString("start_time");
+                    String exit = result.getString("exit_time");
+                    fileWriter.append(specialist).append(",").append(attendanceDate).append(",").append(start).append(",").append(exit).append('\n');
+                }
+                result.close();
+                statement.close();
+            }catch(IOException e){
+                e.printStackTrace();
+                return false;
+            }
+
         }catch(SQLException e){
             e.printStackTrace();
-
+            return false;
         }
-        ArrayList data = new ArrayList<>();
 
+        return true;
     }
 }
