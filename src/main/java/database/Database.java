@@ -10,7 +10,7 @@ public class Database {
 
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(DatabaseInfo.server, DatabaseInfo.name,DatabaseInfo.password);
+            con = DriverManager.getConnection(DatabaseInfo.server+DatabaseInfo.database, DatabaseInfo.name,DatabaseInfo.password);
         }catch(Exception e){
             e.printStackTrace();
             System.out.println("can't connect to Database");
