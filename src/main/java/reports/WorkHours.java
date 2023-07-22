@@ -19,7 +19,7 @@ public class WorkHours  {
         return endTime;
     }
     public void setEndTime(LocalTime time){
-        this.endTime = endTime;
+        this.endTime = time;
     }
 
 }

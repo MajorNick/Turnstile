@@ -1,17 +1,19 @@
 package positions;
 import employees.Employee;
 import employees.Manager;
+import reports.WorkHours;
 
 import java.time.LocalTime;
+import java.util.HashMap;
 
 public class Position {
     public final String position_name;
     private Manager manager;
+
     public LocalTime start;
     public LocalTime end;
     public Position(String position,LocalTime start, LocalTime end){
         position_name = position;
-        this.manager = manager;
         this.start  = start;
         this.end = end;
     }
@@ -19,7 +21,6 @@ public class Position {
     // working hours from 11  to 19  by default
     public Position(String position){
         position_name = position;
-        this.manager = manager;
         this.start  = LocalTime.of(11,0);
         this.end = LocalTime.of(19,0);
     }

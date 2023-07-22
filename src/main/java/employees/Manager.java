@@ -16,6 +16,20 @@ public class Manager implements Employee{
         position = pos;
 
     }
+    public String getId(){
+        return ID_NUMBER;
+    }
+    public boolean Equals(Object obj) {
+        if (this == obj){
+            return true;
+        }
+        if (!(obj instanceof Position)){
+            return false;
+        }
+
+        Employee man = (Employee)obj;
+        return this.ID_NUMBER.equals(man.getId());
+    }
     public LocalDate[] getDate(){
         return null;
     }
