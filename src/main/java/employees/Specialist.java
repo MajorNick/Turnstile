@@ -35,8 +35,6 @@ public class Specialist implements Employee{
         return ID_NUMBER;
     }
 
-    public LocalDate[] getDate(){
-        return null;
-    }
+
 
 }

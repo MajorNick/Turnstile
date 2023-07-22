@@ -19,6 +19,8 @@ public class Queries {
         con = (new Database()).getConnection();
     }
 
+    // executing query which is inserting row, which contains information of,
+    // specialist id, date, enter time and exit time
     public boolean saveDailyAttendance(String id, LocalTime enter){
         PreparedStatement statement = null;
         boolean executed = false;
@@ -32,7 +34,7 @@ public class Queries {
         }
         return executed;
     }
-
+    // executing query to get attendance list from date to date and writing it in Attendance.csv file
     public boolean writeDailyAttendanceCSV(LocalDate from,LocalDate to){
         PreparedStatement statement = null;
         ResultSet result;

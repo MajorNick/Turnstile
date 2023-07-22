@@ -30,7 +30,5 @@ public class Manager implements Employee{
         Employee man = (Employee)obj;
         return this.ID_NUMBER.equals(man.getId());
     }
-    public LocalDate[] getDate(){
-        return null;
-    }
+
 }
